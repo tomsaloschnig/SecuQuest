@@ -1,7 +1,5 @@
 # SecuQuest
 
-# SecuQuest
-
 SecuQuest is a gamified IT security awareness platform for small and medium-sized businesses. The project was developed as part of Semester Project 3 in the HF Cloud Native Engineering program.
 
 The goal of SecuQuest is to help employees without deep technical knowledge recognize common IT security risks in a simple, interactive, and practical way. The first MVP focuses on phishing awareness, user authentication, result tracking, and a leaderboard to create a gamified learning experience.
