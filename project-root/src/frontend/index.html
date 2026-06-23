@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>SecuQuest</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--bg:#f5f5f7;--card:rgba(255,255,255,.88);--text:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.1);--blue:#0071e3;--green:#34c759;--red:#ff3b30;--orange:#ff9f0a;--shadow:0 18px 50px rgba(0,0,0,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:radial-gradient(circle at 12% 8%,rgba(0,113,227,.18),transparent 28%),var(--bg);color:var(--text)}
+.top{position:sticky;top:0;background:rgba(245,245,247,.86);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);z-index:10}.nav{max-width:1200px;margin:auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:18px}.brand{display:flex;gap:10px;align-items:center;font-weight:900;letter-spacing:-.03em}.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(145deg,#0071e3,#62a8ff);color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:0 8px 18px rgba(0,113,227,.26)}.nav-actions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.nav button{border:0;background:transparent;font-weight:800;color:var(--muted);padding:10px 12px;border-radius:999px;cursor:pointer}.nav button:hover{background:rgba(0,0,0,.05);color:var(--text)}.nav button:disabled{opacity:.35;cursor:not-allowed}.nav button:disabled:hover{background:transparent;color:var(--muted)}
+.page{max-width:1180px;margin:auto;padding:52px 24px}.hidden{display:none!important}.hero{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}.panel{background:var(--card);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shadow);border-radius:30px;padding:28px;backdrop-filter:blur(18px)}h1{font-size:clamp(46px,7vw,82px);line-height:.95;letter-spacing:-.07em;margin:0}h2{font-size:clamp(32px,5vw,54px);letter-spacing:-.06em;margin:0 0 14px}h3{margin:0 0 8px;letter-spacing:-.03em}p{color:var(--muted);line-height:1.55}input{width:100%;height:50px;border:1px solid var(--line);border-radius:999px;padding:0 18px;font-size:16px;margin:8px 0;background:#fff}.btn{border:0;border-radius:999px;padding:13px 22px;font-size:15px;font-weight:900;cursor:pointer;margin:6px 6px 6px 0}.primary{background:var(--blue);color:#fff}.secondary{background:#fff;border:1px solid var(--line);color:var(--text)}.red{background:var(--red);color:white}.green{background:var(--green);color:white}.msg{font-weight:800;min-height:24px}.err{color:var(--red)}.ok{color:#137333}.small{font-size:13px;color:var(--muted);font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.stat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px}.stat strong{display:block;font-size:28px;letter-spacing:-.04em}.dashboard-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:22px}.progress{height:10px;background:rgba(0,0,0,.1);border-radius:999px;overflow:hidden;margin:18px auto 28px;max-width:760px}.bar{height:100%;width:0;background:var(--blue);transition:.2s}.game-head{text-align:center;margin-bottom:20px}.case-intro{max-width:650px;margin:0 auto;color:var(--muted)}
+.case-card{max-width:900px;margin:28px auto;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden}.mail-top{display:flex;justify-content:space-between;padding:20px;border-bottom:1px solid var(--line);gap:20px}.avatar{width:46px;height:46px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:900}.from{display:flex;gap:14px;align-items:center}.mail-body{padding:28px}.mail-box{background:#f7f7f9;border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:18px}.phone{max-width:360px;margin:25px auto;background:#555;border-radius:28px;padding:18px}.phone-inner{background:#fff;min-height:430px;border-radius:8px;padding:20px}.bubble{background:#e9e9eb;border-radius:18px;padding:14px;margin-top:35px;max-width:260px}.calendar{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff}.date{float:left;width:72px;text-align:center;border:1px solid var(--line);border-radius:10px;margin-right:18px}.date b{display:block;background:#4e8df5;color:#fff;padding:5px;border-radius:10px 10px 0 0}
+.result-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px}.result-kpi{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}.result-kpi strong{display:block;font-size:30px;letter-spacing:-.05em}.result{display:grid;gap:14px;margin-top:22px}.result-item{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}.result-item.correct{border-color:rgba(52,199,89,.5)}.result-item.wrong{border-color:rgba(255,59,48,.45)}.badge{display:inline-block;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900;margin-bottom:8px}.badge.correct{background:rgba(52,199,89,.15);color:#137333}.badge.wrong{background:rgba(255,59,48,.13);color:#b42318}
+.leaderboard-list{display:grid;gap:12px;margin-top:20px}.leaderboard-row{display:grid;grid-template-columns:70px 1fr 120px 120px;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;cursor:pointer;transition:.15s}.leaderboard-row:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.08);border-color:rgba(0,113,227,.35)}.rank{width:42px;height:42px;border-radius:14px;background:rgba(0,113,227,.1);display:grid;place-items:center;font-weight:900;color:var(--blue)}.score-pill{justify-self:start;background:rgba(52,199,89,.14);color:#137333;padding:8px 12px;border-radius:999px;font-weight:900}.empty-state{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px}
+@media(max-width:850px){.hero,.stats,.dashboard-grid,.result-summary{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.leaderboard-row{grid-template-columns:50px 1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="nav"><div class="brand"><div class="logo">S</div>SecuQuest</div><div class="nav-actions"><button id="navLogin" onclick="show('login')">Login</button><button id="navDashboard" onclick="needLogin('dash')" disabled>Dashboard</button><button id="navGame" onclick="startGame()" disabled>Game</button><button id="navLeaderboard" onclick="showLeaderboard()" disabled>Leaderboard</button><button id="navLogout" onclick="logout()" disabled>Logout</button></div></div></header>
+<main class="page">
+<section id="login"><div class="hero"><div><p class="small">Sprint 3 · Leaderboard, UI und Testing</p><h1>Security Awareness. Einfach. Spielbar.</h1><p>Melde dich an und prüfe realistische E-Mails, SMS und Kalendereinladungen. Nach dem Spiel wird dein Ergebnis im Leaderboard gespeichert.</p></div><div class="panel"><h2>Login</h2><input id="u" placeholder="Benutzername"><input id="p" type="password" placeholder="Passwort"><button class="btn primary" onclick="login()">Einloggen</button><button class="btn secondary" onclick="register()">Registrieren</button><div id="msg" class="msg"></div></div></div></section>
+<section id="dash" class="hidden"><h2>Dashboard</h2><p id="welcome"></p><div class="dashboard-grid"><div class="panel"><h3>Phishing-Minigame</h3><p>Pro Durchgang werden zufällig 10 von 15 Szenarien geladen. Das Spiel ist nur nach Login verfügbar. Es gibt keine Hinweise während dem Spiel. Die Auswertung erscheint erst am Schluss.</p><div class="stats"><div class="stat"><strong>15</strong><span>Szenarien</span></div><div class="stat"><strong>10</strong><span>pro Spiel</span></div><div class="stat"><strong>10</strong><span>max. Punkte</span></div></div><button class="btn primary" onclick="startGame()">Spiel starten</button><button class="btn secondary" onclick="showLeaderboard()">Leaderboard anzeigen</button></div><div class="panel"><h3>Abgabestand</h3><p>Login, Game, Scoreberechnung, Resultatseite und Leaderboard sind umgesetzt. Die wichtigsten Funktionen können über Browser und curl getestet werden.</p></div></div></section>
+<section id="game" class="hidden"><div class="game-head"><p id="round" class="small">Runde 1 von 10</p><h2 id="headline">Titel</h2><p id="intro" class="case-intro"></p><div class="progress"><div id="bar" class="bar"></div></div><button class="btn red" onclick="answer(true)">Phishing</button><button class="btn green" onclick="answer(false)">Echt</button></div><div id="caseBox"></div></section>
+<section id="result" class="hidden"><h2>Resultat</h2><div class="panel"><p>Dein Score:</p><h1 id="score">0/10</h1><p id="scoreMsg"></p><div class="result-summary"><div class="result-kpi"><strong id="correctCount">0</strong><span>Richtig</span></div><div class="result-kpi"><strong id="wrongCount">0</strong><span>Falsch</span></div><div class="result-kpi"><strong id="percentCount">0%</strong><span>Ergebnis</span></div></div></div><div id="resultList" class="result"></div><button class="btn primary" onclick="startGame()">Nochmal spielen</button><button class="btn secondary" onclick="show('dash')">Dashboard</button><button class="btn secondary" onclick="showLeaderboard()">Leaderboard</button></section>
+<section id="leaderboard" class="hidden"><h2>Leaderboard</h2><p>Die Rangliste zeigt den besten gespeicherten Score pro Benutzer. Sortiert wird absteigend nach Punkten. Klicke auf einen Eintrag, um die gespeicherte Resultatseite zu öffnen.</p><div class="panel"><h3>Top Scores</h3><div id="leaderboardList" class="leaderboard-list"></div></div><button class="btn primary" onclick="startGame()">Neues Spiel starten</button><button class="btn secondary" onclick="show('dash')">Dashboard</button></section>
+</main>
+<script>
+const U="http://localhost:5001", P="http://localhost:5002", S="http://localhost:5003";let user=null, emails=[], idx=0, answers=[], last=null;
+function updateNav(){const loggedIn=!!user;document.getElementById("navDashboard").disabled=!loggedIn;document.getElementById("navGame").disabled=!loggedIn;document.getElementById("navLeaderboard").disabled=!loggedIn;document.getElementById("navLogout").disabled=!loggedIn;document.getElementById("navLogin").disabled=loggedIn;}
+function show(id){["login","dash","game","result","leaderboard"].forEach(v=>document.getElementById(v).classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(id==="dash"&&user){document.getElementById("welcome").innerText=`Willkommen, ${user.username}.`;}updateNav();}
+function msg(t,c=""){document.getElementById("msg").innerText=t;document.getElementById("msg").className="msg "+c;}
+function payload(){return{username:document.getElementById("u").value.trim(),password:document.getElementById("p").value.trim()};}
+async function register(){try{let r=await fetch(U+"/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload())});let d=await r.json();if(!r.ok){msg(d.message||"Fehler","err");return;}user=d.user;msg("Registrierung erfolgreich.","ok");show("dash");}catch(e){msg("User Service nicht erreichbar.","err");}}
+async function login(){try{let r=await fetch(U+"/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload())});let d=await r.json();if(!r.ok){msg(d.message||"Fehler","err");return;}user=d.user;msg("Login erfolgreich.","ok");show("dash");}catch(e){msg("User Service nicht erreichbar.","err");}}
+function needLogin(v){if(!user){show("login");msg("Bitte zuerst einloggen oder registrieren. Ohne Login ist Dashboard, Game und Leaderboard gesperrt.","err");return;}show(v);}
+function logout(){user=null;emails=[];answers=[];last=null;localStorage.removeItem("sq_user");show("login");msg("Du wurdest ausgeloggt.","ok");updateNav();}
+async function startGame(){if(!user){show("login");msg("Bitte zuerst einloggen oder registrieren. Das Game ist ohne Login nicht verfügbar.","err");return;}try{let r=await fetch(P+"/emails");let d=await r.json();if(!r.ok||!d.emails||d.emails.length!==10){alert("Es konnten keine 10 Szenarien geladen werden. Bitte Datenbank mit docker compose down -v zurücksetzen.");return;}emails=d.emails;idx=0;answers=[];show("game");render();}catch(e){alert("Phishing Service nicht erreichbar.");}}
+function render(){let e=emails[idx];document.getElementById("round").innerText=`Runde ${idx+1} von ${emails.length}`;document.getElementById("bar").style.width=`${(idx/emails.length)*100}%`;document.getElementById("headline").innerText=e.headline||e.title||e.subject;document.getElementById("intro").innerText=e.intro||"Prüfe den Fall und entscheide.";document.getElementById("caseBox").innerHTML=caseHtml(e);}
+function caseHtml(e){if(e.type==="sms"){return `<div class="phone"><div class="phone-inner"><div class="small">${e.sender_email}</div><div class="bubble">${e.content}</div></div></div>`;}if(e.type==="calendar"){return `<div class="case-card"><div class="mail-top"><div class="from"><div class="avatar">${(e.sender_name||"K")[0]}</div><div><b>${e.sender_name}</b><div class="small">${e.sender_email}</div></div></div><div class="small">11:21</div></div><div class="mail-body"><div class="calendar"><div class="date"><b>Juni</b><h2>14</h2></div><h3>${e.subject}</h3><p>${e.content}</p><p><b>Link/Info:</b> ${e.link_or_attachment||"Kein Link"}</p><div style="clear:both"></div></div></div></div>`;}return `<div class="case-card"><div class="mail-top"><div class="from"><div class="avatar">${(e.sender_name||"M")[0]}</div><div><b>${e.sender_name}</b><div class="small">${e.sender_email}</div><div class="small">${e.recipient||"An mich"}</div></div></div><div class="small">11:${10+idx}</div></div><div class="mail-body"><div class="small">Betreff</div><h3>${e.subject}</h3><div class="mail-box"><p>${e.content}</p><p><b>Link/Anhang:</b> ${e.link_or_attachment||"Kein Link"}</p></div></div></div>`;}
+async function answer(isPhishing){let e=emails[idx];answers.push({email_id:e.id,is_phishing:isPhishing});idx++;if(idx<emails.length){render();return;}document.getElementById("bar").style.width="100%";await submit();}
+async function submit(){try{let r=await fetch(S+"/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:user.id,answers})});let d=await r.json();if(!r.ok){if(d.code==="USER_NOT_FOUND"){user=null;show("login");msg("Deine Session passt nicht mehr zur Datenbank. Bitte neu registrieren oder neu einloggen.","err");return;}alert(d.message||"Score Fehler");return;}last=d;renderResult(d);}catch(e){alert("Scoring Service nicht erreichbar.");}}
+function renderResult(d){
+  show("result");
+  const wrong=d.max_points-d.points;
+  const percent=Math.round((d.points/d.max_points)*100);
+  const stored=d.view_mode==="leaderboard";
+
+  document.getElementById("score").innerText=`${d.points}/${d.max_points}`;
+
+  if(stored){
+    document.getElementById("scoreMsg").innerText=`Gespeichertes Resultat von ${d.username}. Dieses Resultat wurde über das Leaderboard geöffnet.`;
+  }else{
+    document.getElementById("scoreMsg").innerText=d.points>=8
+      ?"Sehr gut erkannt. Du hast die meisten Risiken korrekt eingeschätzt."
+      :"Achte noch stärker auf Absender, Links, Subdomains und den Kontext der Nachricht.";
+  }
+
+  document.getElementById("correctCount").innerText=d.points;
+  document.getElementById("wrongCount").innerText=wrong;
+  document.getElementById("percentCount").innerText=`${percent}%`;
+
+  let box=document.getElementById("resultList");
+  box.innerHTML="";
+
+  d.results.forEach(x=>{
+    box.innerHTML+=`<div class="result-item ${x.is_correct?'correct':'wrong'}">
+      <span class="badge ${x.is_correct?'correct':'wrong'}">${x.is_correct?'Richtig':'Falsch'}</span>
+      <h3>${x.title||x.subject}</h3>
+      <p><b>Absender:</b> ${x.sender_name} &lt;${x.sender_email}&gt;</p>
+      <p><b>Deine Antwort:</b> ${x.user_answer?'Phishing':'Echt'} · <b>Korrekt:</b> ${x.correct_answer?'Phishing':'Echt'}</p>
+      <p><b>Begründung:</b> ${x.explanation}</p>
+      <p><b>Lerntipp:</b> ${x.learning_tip}</p>
+    </div>`;
+  });
+}
+
+async function showLeaderboard(){
+  if(!user){
+    show("login");
+    msg("Bitte zuerst einloggen oder registrieren. Das Leaderboard ist ohne Login nicht verfügbar.","err");
+    return;
+  }
+
+  show("leaderboard");
+  const list=document.getElementById("leaderboardList");
+  list.innerHTML=`<div class="empty-state">Leaderboard wird geladen...</div>`;
+
+  try{
+    let r=await fetch(S+"/leaderboard");
+    let d=await r.json();
+
+    if(!r.ok||d.status!=="ok"){
+      list.innerHTML=`<div class="empty-state">Leaderboard konnte nicht geladen werden.</div>`;
+      return;
+    }
+
+    if(!d.leaderboard||d.leaderboard.length===0){
+      list.innerHTML=`<div class="empty-state">Noch keine Scores vorhanden. Spiele zuerst eine Runde.</div>`;
+      return;
+    }
+
+    list.innerHTML="";
+    d.leaderboard.forEach(entry=>{
+      list.innerHTML+=`<div class="leaderboard-row" onclick="showStoredResult(${entry.score_id})" title="Resultat von ${entry.username} öffnen">
+        <div class="rank">${entry.rank}</div>
+        <div>
+          <h3>${entry.username}</h3>
+          <div class="small">${entry.attempts} Versuch(e) · Klick für Resultat</div>
+        </div>
+        <div class="score-pill">${entry.points}/${entry.max_points}</div>
+        <div class="small">${new Date(entry.created_at).toLocaleDateString()}</div>
+      </div>`;
+    });
+  }catch(e){
+    list.innerHTML=`<div class="empty-state">Scoring Service ist nicht erreichbar.</div>`;
+  }
+}
+
+async function showStoredResult(scoreId){
+  if(!user){
+    show("login");
+    msg("Bitte zuerst einloggen oder registrieren.","err");
+    return;
+  }
+
+  try{
+    let r=await fetch(S+"/result/"+scoreId);
+    let d=await r.json();
+
+    if(!r.ok||d.status!=="ok"){
+      alert(d.message||"Resultat konnte nicht geladen werden.");
+      return;
+    }
+
+    renderResult(d);
+  }catch(e){
+    alert("Scoring Service ist nicht erreichbar.");
+  }
+}
+
+localStorage.removeItem("sq_user");show("login");updateNav();msg("Bitte einloggen oder registrieren, um SecuQuest zu starten.","");
+</script>
+</body>
+</html>
